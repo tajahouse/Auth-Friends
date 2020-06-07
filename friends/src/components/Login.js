@@ -2,63 +2,75 @@ import React, { useState, useEffect } from 'react';
 import * as yup from 'yup';
 import axios from 'axios';
 
-const formSchema = yup.object().shape({
+
+//formSchema
+    const formSchema = yup.object().shape({
     userName: yup.string().required("Name is a required field."),
     password: yup.string().min(6, "Password must be 6 characters long"),
+    rememberMe: yup.boolean().oneOf([true, false]),
 
   });
 
-const Login = () => {
-const [users, setUsers]= useState([]);
 
-const [errors, setErrors]= useState(
+const Login = () => {
+
+ //states   
+    const [users, setUsers]= useState([]);
+
+    const [formState, setFormState] = useState({
+    userName:"",
+    password:"",
+    rememberMe: false
+})
+
+    const [errors, setErrors]= useState(
     {
         userName:"",
-        password:""
+        password:"",
+        rememberMe: false
     }
 )
 
-const [formState, setFormState] = useState({
-    userName:"",
-    password:""
-})
-
 const [buttonDisabled, setButtonDisabled]= useState(true);
 
+//Functions
+    const submitForm = e =>{
+        e.preventDefault();
 
-const submitForm = e =>{
-    e.preventDefault();
-    axios
-        .post("https://reqres.in/api/users", formState)
-        .then(res => {
-            setUsers(res.data); // get just the form data from the REST api
+        axios
+            .post("https://reqres.in/api/users", formState)
+            .then(res => {
+                setUsers(res.data); // get just the form data from the REST api
 
-            // reset form if successful
-            setFormState({
-            userName: "",
-            password:"",
-            });
-        })
-        .catch(err => console.log(err.response));
-};
+                // reset form if successful
+                setFormState({
+                userName: "",
+                password:"",
+                rememberMe:false
+                });
+            })
+            .catch(err => console.log(err.response));
+    };
 
+
+//Form Validations
 const validateChange = e =>{
     // Reach will allow us to "reach" into the schema and test only one part.
 yup
-.reach(formSchema, e.target.name)
-.validate(e.target.value)
-.then(valid => {
-  setErrors({
-    ...errors,
-    [e.target.name]: ""
-  });
+    .reach(formSchema, e.target.name)
+    .validate(e.target.value)
+    .then(valid => {
+    setErrors({
+        ...errors,
+        [e.target.name]: ""
+    });
 })
 .catch(err => {
-  setErrors({
-    ...errors,
-    [e.target.name]: err.errors[0]
-  });
-});
+    setErrors({
+        ...errors,
+        [e.target.name]: err.errors[0]
+    });
+    });
 }
 
 useEffect(()=> {
@@ -107,6 +119,10 @@ const inputChange = e => {
                 ): null}
                 </label>
     <pre>{JSON.stringify(users, null, 2)}</pre>
+                <label>
+                    <input name="rememberMe" checked={formState.rememberMe} onChange={inputChange} type="checkbox"/>
+                    Remember Me
+                </label>
                 <button type="submit" disabled={buttonDisabled} button-cy="button">Submit</button>   
 
                 
