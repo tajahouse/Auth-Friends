@@ -30,8 +30,7 @@ function App() {
 
 
     <Switch>
-      <PrivateRoute exact path="/protected" component={Protected}/>
-      <Route path="/friends" component={FriendsForm} />
+      <PrivateRoute path="/friends" component={FriendsForm} />
       <Route path = "/login" component={Login} />
       <Route path ="/public" component={Public} />
     </Switch>

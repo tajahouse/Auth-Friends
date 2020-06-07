@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import * as yup from 'yup';
 import axios from 'axios';
+import { axiosWithAuth } from '../utils/axiosWithAuth';
+
 
 
 //formSchema
@@ -12,7 +14,7 @@ import axios from 'axios';
   });
 
 
-const Login = () => {
+const Login = (props) => {
 
  //states   
     const [users, setUsers]= useState([]);
@@ -51,19 +53,15 @@ const [buttonDisabled, setButtonDisabled]= useState(true);
         setIsLoading({rememberMe, userName})
 
 
-        axios
-            .post("https://reqres.in/api/users", formState)
+        axiosWithAuth()
+            .post("/login", formState)
             .then(res => {
-                setUsers(res.data); // get just the form data from the REST api
-
-                // reset form if successful
-                setFormState({
-                userName: "",
-                password:"",
-                rememberMe:false
-                });
+                localStorage.setItem('token', res.data.payload)
+                props.history.push('/friends')
             })
-            .catch(err => console.log(err.response));
+            .catch(err => {
+                console.log('Error is ', err)
+            })
     };
 
 
