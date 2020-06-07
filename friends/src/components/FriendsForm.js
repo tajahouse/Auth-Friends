@@ -5,14 +5,14 @@ import axios from 'axios';
 
 //formSchema
     const formSchema = yup.object().shape({
-    userName: yup.string().required("Name is a required field."),
-    password: yup.string().min(6, "Password must be 6 characters long"),
-    rememberMe: yup.boolean().oneOf([true, false]),
+    name: yup.string().required("Name is a required field."),
+    email: yup.string().email(),
+    age: yup.number(),
 
   });
 
 
-const Login = () => {
+const FriendsForm = () => {
 
  //states   
     const [users, setUsers]= useState([]);
@@ -22,16 +22,18 @@ const Login = () => {
 });
 
     const [formState, setFormState] = useState({
-    userName:"",
-    password:"",
-    rememberMe: false
+    name:'',
+    age:'',
+    email:'',
+    id:''
 })
 
     const [errors, setErrors]= useState(
     {
-        userName:"",
-        password:"",
-        rememberMe: false
+        name:'',
+        age:'',
+        email:'',
+        id:''
     }
 )
 
@@ -41,14 +43,11 @@ const [buttonDisabled, setButtonDisabled]= useState(true);
     const submitForm = e =>{
         e.preventDefault();
 
-        localStorage.setItem('userName', formState.rememberMe ? formState.userName: '');
-        localStorage.setItem('password', formState.password);
-        localStorage.setItem('rememberMe', formState.rememberMe);
+        localStorage.setItem('name', formState.name);
+        localStorage.setItem('email', formState.email);
+        localStorage.setItem('age', formState.age);
+        localStorage.setItem('id', formState.id);
 
-        const rememberMe = localStorage.getItem('rememberMe') === 'true';
-        const userName = rememberMe ? localStorage.getItem('userName'): ''
-        
-        setIsLoading({rememberMe, userName})
 
 
         axios
@@ -58,9 +57,10 @@ const [buttonDisabled, setButtonDisabled]= useState(true);
 
                 // reset form if successful
                 setFormState({
-                userName: "",
-                password:"",
-                rememberMe:false
+                    name:'',
+                    age:'',
+                    email:'',
+                    id:''
                 });
             })
             .catch(err => console.log(err.response));
@@ -109,40 +109,44 @@ const inputChange = e => {
         <div className="login-form">
             <form className="form-wrapper" onSubmit={submitForm}>
                 <label>
-                    Username:
+                    Name:
                       <input 
-                        type="text" className="username"
-                        value = {formState.userName}
+                        type="text" className="input name"
+                        value = {formState.name}
                         onChange = {inputChange}
-                        name= "userName"
-                        data-cy="userName"            
+                        name= "name"
+                        data-cy="name"            
+                        />
+                    
+                </label>
+                <label>
+                    Age:
+                      <input 
+                        type="text" className="input age" id='age'
+                        value = {formState.age}
+                        onChange = {inputChange}
+                        name= "age"
+                        data-cy="age"            
                         />
                 </label>
 
                 <label>
-                Password:
+                Email:
                     <input 
-                        type="password" className="password"
-                        value = {formState.password}
+                        type="email" className="input email"
+                        value = {formState.email}
                         onChange={inputChange}
-                        name="password"
-                        data-cy="password"
+                        name="email"
+                        data-cy="email"
                     />
-                {errors.password.length> 0 ? (
-                    <p className="error" error-cy="password">{errors.password}</p>
-                ): null}
+
                 </label>
     <pre>{JSON.stringify(users, null, 2)}</pre>
-                <label>
-                    <input name="rememberMe" checked={formState.rememberMe} onChange={inputChange} type="checkbox"/>
-                    Remember Me
-                </label>
-                <button type="submit" disabled={buttonDisabled} button-cy="button">Submit</button>   
 
+                <button type="submit" disabled={buttonDisabled} button-cy="button">Submit</button>   
                 
             </form>
         </div>
     )
 }
-
-export default Login;
+export default FriendsForm;

@@ -1,38 +1,55 @@
 .App {
   text-align: center;
+
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
+/* homepage */
+  .home-page-heading{
+    font-family: 'Bellota', cursive;
+    background: rgb(34,193,195);
+    background: linear-gradient(90deg, rgba(34,193,195,1) 0%, rgba(253,187,45,1) 100%);
+    background-image: url("../src/images/friendsImg.jpg");
+    background-size: 800px;
+    background-position: center;
+    background-repeat: no-repeat;
+    min-height: 80vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: calc(10px + 2vmin);
+    color: black;
   }
-}
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+  ul{
+    display: flex;
+    justify-content: space-evenly;
+    list-style: none;
+  }
+
+/* login form */
+.form-wrapper{
+  box-shadow: 2px 2px white;
   display: flex;
   flex-direction: column;
+  justify-content: space-around;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+  font-family: 'Kranky', cursive;
   color: white;
+
+}
+.username{
+  padding:2px;
+  margin: 4px;
 }
 
-.App-link {
-  color: #61dafb;
+/* friends form */
+.input{
+  padding:2px;
+  margin: 4px;
+  
 }
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+#age{
+  margin-left: 19px;
 }
