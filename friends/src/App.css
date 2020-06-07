@@ -10,7 +10,7 @@
     background: rgb(34,193,195);
     background: linear-gradient(90deg, rgba(34,193,195,1) 0%, rgba(253,187,45,1) 100%);
     background-image: url("../src/images/friendsImg.jpg");
-    background-size: 800px;
+    background-size: 700px;
     background-position: center;
     background-repeat: no-repeat;
     min-height: 80vh;
@@ -26,7 +26,9 @@
     display: flex;
     justify-content: space-evenly;
     list-style: none;
+    text-decoration: none
   }
+ 
 
 /* login form */
 .form-wrapper{
