@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
 import Login from "./components/Login";
 import PrivateRoute from "./components/PrivateRoute"
 import Public from "./components/Public";
-import Protected from "./components/Protected"
+// import Protected from "./components/Protected"
 import FriendsForm from './components/FriendsForm';
 
 function App() {

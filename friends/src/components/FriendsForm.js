@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import * as yup from 'yup';
 import axios from 'axios';
 
+
 //formSchema
     const formSchema = yup.object().shape({
     name: yup.string().required("Name is a required field."),
@@ -47,20 +48,22 @@ const [buttonDisabled, setButtonDisabled]= useState(true);
         localStorage.setItem('age', formState.age);
         localStorage.setItem('id', formState.id);
 
-        axios
-            .post("https://reqres.in/api/users", formState)
-            .then(res => {
-                setUsers(res.data); // get just the form data from the REST api
+        
 
-              // reset form if successful
-                setFormState({
-                    name:'',
-                    age:'',
-                    email:'',
-                    id:''
-                });
-            })
-            .catch(err => console.log(err.response));
+        // axios
+        //     .post("https://reqres.in/api/users", formState)
+        //     .then(res => {
+        //         setUsers(res.data); // get just the form data from the REST api
+
+        //       // reset form if successful
+        //         setFormState({
+        //             name:'',
+        //             age:'',
+        //             email:'',
+        //             id:''
+        //         });
+        //     })
+        //     .catch(err => console.log(err.response));
     };
 
 
